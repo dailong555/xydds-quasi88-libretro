@@ -329,6 +329,15 @@ else ifeq ($(platform), miyoo)
 	AR = /opt/miyoo/usr/bin/arm-linux-ar
 	FLAGS += -fomit-frame-pointer -ffast-math -march=armv5te -mtune=arm926ej-s
 	FLAGS += -fno-common -ftree-vectorize -funswitch-loops
+# XYDDS
+else ifeq ($(platform), xydds)
+	TARGET := $(TARGET_NAME)_libretro.so
+	fpic := -fPIC
+	SHARED := -shared -Wl,-version-script=link.T
+	CC = /opt/xydds/usr/bin/arm-linux-gcc
+	AR = /opt/xydds/usr/bin/arm-linux-ar
+	FLAGS += -fomit-frame-pointer -ffast-math -marm -mfpu=neon-vfpv4 -mfloat-abi=hard
+	FLAGS += -fno-common -ftree-vectorize -funswitch-loops -DARM -mcpu=cortex-a7
 # Windows MSVC 2010 x64
 else ifeq ($(platform), windows_msvc2010_x64)
 	CC  = cl.exe
